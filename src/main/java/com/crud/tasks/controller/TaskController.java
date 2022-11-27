@@ -1,7 +1,10 @@
 package com.crud.tasks.controller;
 
 import com.crud.tasks.domain.TaskDto;
+import com.crud.tasks.mapper.TaskMapper;
+import com.crud.tasks.service.DbService;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -9,7 +12,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/v1/tasks")
+@RequiredArgsConstructor
 public class TaskController {
+
+    public final DbService service;
+    public final TaskMapper taskMapper;
 
     @GetMapping
     public List<TaskDto> getTasks() {
@@ -24,9 +31,9 @@ public class TaskController {
     @DeleteMapping(value = "{taskId}")
     public void deleteTask(@PathVariable Long taskId) {}
 
-    @PutMapping(value = "{taskDto}")
-    public TaskDto updateTask(@PathVariable TaskDto taskDto) {
-        return new TaskDto(2L, "Edited test title", "Test content");
+    @PutMapping(value = "{TaskDto}")
+    public TaskDto updateTask(TaskDto taskDto) {
+        return new TaskDto(1L, "Edited test title", "Test content");
     }
 
     @PostMapping(value = "{taskDto}")
