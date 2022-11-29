@@ -10,8 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @NoArgsConstructor
-@Getter
 @AllArgsConstructor
+@Getter
 @Entity(name = "tasks")
 public class Task {
 
