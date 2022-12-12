@@ -17,6 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/v1/tasks")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class TaskController {
 
     public final DbService service;
@@ -25,12 +26,15 @@ public class TaskController {
     @GetMapping
     public ResponseEntity<List<TaskDto>> getTasks() {
         List<Task> tasks = service.getAllTasks();
-        return ResponseEntity.ok(taskMapper.mapToTaskDtoList(tasks));
+        List<TaskDto> taskDtoList = taskMapper.mapToTaskDtoList(tasks);
+        return ResponseEntity.ok(taskDtoList);
     }
 
     @GetMapping(value = "{taskId}")
     public ResponseEntity<TaskDto> getTask(@PathVariable Long taskId) throws TaskNotFoundException {
-        return ResponseEntity.ok(taskMapper.mapToTaskDto(service.getTask(taskId)));
+        Task task = service.getTask(taskId);
+        TaskDto taskDto = taskMapper.mapToTaskDto(task);
+        return ResponseEntity.ok(taskDto);
     }
 
     @DeleteMapping(value = "{taskId}")
